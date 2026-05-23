@@ -8,15 +8,15 @@
 
   <!--
   ╔══════════════════════════════════════════════════════╗
-  ║  CONTACT FORM SETUP — Web3Forms (free, 250/mo)      ║
+  ║  CONTACT FORM SETUP — Formspree (free, 50/mo)       ║
   ║                                                      ║
-  ║  1. Go to https://web3forms.com                     ║
-  ║  2. Enter cornerstonegeneralservices@gmail.com      ║
-  ║  3. Click "Create Access Key"                        ║
-  ║  4. Copy the key and replace YOUR_ACCESS_KEY below  ║
-  ║     (search for: YOUR_ACCESS_KEY)                    ║
+  ║  1. Go to https://formspree.io/register             ║
+  ║  2. Sign up with cornerstonegeneralsolutions@gmail  ║
+  ║  3. Click "+ New Form", name it "CGS Quote Request" ║
+  ║  4. Copy the Form ID (looks like: xyzabcde)         ║
+  ║  5. Replace YOUR_FORM_ID below with that ID         ║
   ║                                                      ║
-  ║  Supports photo attachments up to 5 MB each.        ║
+  ║  Submissions land directly in your Gmail inbox.     ║
   ╚══════════════════════════════════════════════════════╝
   -->
 
@@ -792,7 +792,7 @@
       <div class="service-card">
         <div class="svc-icon">🔨</div>
         <h3>Repairs &amp; Maintenance</h3>
-        <p>Got a list of things that need fixing? We'll work through it efficiently and leave the property in great shape. Landlords love this — one visit, multiple items handled, tenants happy.</p>
+        <p>Got a list of things that need fixing? We'll work through it efficiently and leave the property in great shape — no job is too small to deserve quality attention.</p>
       </div>
 
       <div class="service-card">
@@ -904,7 +904,7 @@
           <div class="info-icon">✉️</div>
           <div class="info-text">
             <strong>Email</strong>
-            <a href="mailto:cornerstonegeneralservices@gmail.com">cornerstonegeneralservices@gmail.com</a>
+            <a href="mailto:cornerstonegeneralsolutions@gmail.com">cornerstonegeneralsolutions@gmail.com</a>
           </div>
         </div>
 
@@ -933,14 +933,11 @@
               <p>Tell us about your project and we'll reach out within 24 hours. Photos help us give you the most accurate quote.</p>
             </div>
 
-            <form id="quoteForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+            <form id="quoteForm">
 
-              <!-- Web3Forms config — replace YOUR_ACCESS_KEY with your key from web3forms.com -->
-              <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY" />
-              <input type="hidden" name="subject" value="New Project Quote — Cornerstone General Solutions" />
-              <input type="hidden" name="from_name" value="CGS Website" />
-              <input type="hidden" name="redirect" value="false" />
-              <input type="checkbox" name="botcheck" style="display:none;" />
+              <!-- Formspree — replace YOUR_FORM_ID with your ID from formspree.io -->
+              <input type="hidden" name="_subject" value="New Quote Request — Cornerstone General Solutions" />
+              <input type="text" name="_gotcha" style="display:none;" />
 
               <div class="frow">
                 <div class="fg">
@@ -1014,6 +1011,9 @@
                 <span id="btnArrow">→</span>
               </button>
               <p class="form-legal">We'll only use your info to follow up on your request. No spam, no sales calls — just a friendly response from our team.</p>
+              <div id="formError" style="display:none;margin-top:12px;padding:12px 16px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;font-size:.85rem;color:#b91c1c;text-align:center;">
+                Something went wrong — please email us directly at <a href="mailto:cornerstonegeneralsolutions@gmail.com" style="color:#b91c1c;font-weight:700;">cornerstonegeneralsolutions@gmail.com</a>
+              </div>
             </form>
           </div>
 
@@ -1048,7 +1048,7 @@
         their properties in great shape — one project at a time.
       </p>
       <div class="footer-contact-item">📞 <a href="tel:+14699893443">(469) 989-3443</a></div>
-      <div class="footer-contact-item">✉️ <a href="mailto:cornerstonegeneralservices@gmail.com">cornerstonegeneralservices@gmail.com</a></div>
+      <div class="footer-contact-item">✉️ <a href="mailto:cornerstonegeneralsolutions@gmail.com">cornerstonegeneralsolutions@gmail.com</a></div>
     </div>
 
     <div class="footer-col">
@@ -1071,7 +1071,7 @@
         <li><a href="#pillars">Our Commitment</a></li>
         <li><a href="#contact">Request a Quote</a></li>
         <li><a href="tel:+14699893443">Call Us</a></li>
-        <li><a href="mailto:cornerstonegeneralservices@gmail.com">Email Us</a></li>
+        <li><a href="mailto:cornerstonegeneralsolutions@gmail.com">Email Us</a></li>
       </ul>
     </div>
 
@@ -1132,57 +1132,52 @@
     handleFiles(e.dataTransfer.files);
   });
 
-  /* ── Form submission ── */
+  /* ── Form submission — Formspree ── */
+  const FORMSPREE_ID = 'mbdbklgk';
+
   document.getElementById('quoteForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    const btn = document.getElementById('submitBtn');
+    const btn     = document.getElementById('submitBtn');
     const btnText = document.getElementById('btnText');
-    btn.disabled = true;
+    const btnArrow = document.getElementById('btnArrow');
+    btn.disabled  = true;
     btnText.textContent = 'Sending…';
+    btnArrow.textContent = '⏳';
 
     const formData = new FormData(this);
 
     // Attach selected files
-    selectedFiles.forEach((f, i) => {
-      formData.set(`attachment_${i+1}`, f, f.name);
-    });
+    selectedFiles.forEach((f) => formData.append('attachment', f, f.name));
 
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: { 'Accept': 'application/json' }
       });
       const data = await res.json();
 
-      if (data.success) {
+      if (res.ok) {
         document.getElementById('formBody').style.display = 'none';
         document.getElementById('formSuccess').classList.add('visible');
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 5000);
       } else {
-        throw new Error(data.message || 'Submission failed');
+        throw new Error(data.errors ? data.errors.map(e => e.message).join(', ') : 'Submission failed');
       }
     } catch (err) {
-      // Fallback — open mailto if Web3Forms not yet configured
-      const fname = formData.get('first_name') || '';
-      const lname = formData.get('last_name') || '';
-      const service = formData.get('service') || '';
-      const message = formData.get('message') || '';
-      const phone = formData.get('phone') || '';
-      const address = formData.get('project_address') || '';
-
-      const body = encodeURIComponent(
-        `Name: ${fname} ${lname}\nPhone: ${phone}\nService: ${service}\nAddress: ${address}\n\nProject Details:\n${message}`
-      );
-      const subject = encodeURIComponent(`Quote Request – ${service} | ${fname} ${lname}`);
-      window.location.href = `mailto:cornerstonegeneralservices@gmail.com?subject=${subject}&body=${body}`;
-
-      document.getElementById('formBody').style.display = 'none';
-      document.getElementById('formSuccess').classList.add('visible');
+      btn.disabled = false;
+      btnText.textContent = 'Submit Quote Request';
+      btnArrow.textContent = '→';
+      // Show friendly error
+      const errBox = document.getElementById('formError');
+      if (errBox) {
+        errBox.style.display = 'block';
+        setTimeout(() => errBox.style.display = 'none', 6000);
+      }
     }
-
-    const toast = document.getElementById('toast');
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 5000);
   });
 
   /* ── Scroll-based nav active link ── */
