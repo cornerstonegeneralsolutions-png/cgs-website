@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cornerstone General Solutions | Home &amp; Property Services</title>
+  <meta name="description" content="Cornerstone General Solutions helps homeowners, landlords, real estate agents, and property investors keep their properties in great shape — from repairs and renovations to smart home upgrades." />
+
+  <!--
+  ╔══════════════════════════════════════════════════════╗
+  ║  CONTACT FORM SETUP — Web3Forms (free, 250/mo)      ║
+  ║                                                      ║
+  ║  1. Go to https://web3forms.com                     ║
+  ║  2. Enter cornerstonegeneralservices@gmail.com      ║
+  ║  3. Click "Create Access Key"                        ║
+  ║  4. Copy the key and replace YOUR_ACCESS_KEY below  ║
+  ║     (search for: YOUR_ACCESS_KEY)                    ║
+  ║                                                      ║
+  ║  Supports photo attachments up to 5 MB each.        ║
+  ╚══════════════════════════════════════════════════════╝
+  -->
+
+  <style>
+    /* ───────── Reset ───────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ───────── Design Tokens ───────── */
+    :root {
+      --navy:        #0c1f3d;
+      --navy-mid:    #163058;
+      --blue:        #1a4a8a;
+      --blue-light:  #2563a8;
+      --accent:      #b8975a;
+      --accent-lt:   #d4b47a;
+      --bp-bg:       #d6e8f7;        /* blueprint paper blue */
+      --bp-line-maj: rgba(255,255,255,0.55);  /* major grid lines */
+      --bp-line-min: rgba(255,255,255,0.22);  /* minor grid lines */
+      --white:       #ffffff;
+      --gray-bg:     #f0f5fb;
+      --gray-mid:    #d9e4ef;
+      --gray-text:   #4a5e78;
+      --shadow-sm:   0 2px 12px rgba(12,31,61,.10);
+      --shadow-md:   0 6px 28px rgba(12,31,61,.14);
+      --shadow-lg:   0 12px 48px rgba(12,31,61,.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #1a2a3d;
+      background-color: var(--bp-bg);
+      /* Blueprint paper pattern */
+      background-image:
+        linear-gradient(var(--bp-line-maj) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bp-line-maj) 1px, transparent 1px),
+        linear-gradient(var(--bp-line-min) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bp-line-min) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+      background-position: -1px -1px;
+      line-height: 1.6;
+    }
+
+    /* ───────── NAV ───────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--navy);
+      height: 70px;
+      padding: 0 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 20px rgba(0,0,0,.35);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-emblem {
+      width: 42px; height: 42px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 15px;
+      color: var(--navy);
+      letter-spacing: -.5px;
+      flex-shrink: 0;
+    }
+    .nav-title {
+      line-height: 1.25;
+    }
+    .nav-title strong {
+      display: block;
+      font-size: .975rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: .01em;
+    }
+    .nav-title span {
+      font-size: .68rem;
+      font-weight: 400;
+      color: #7a9abb;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-links a {
+      color: #b0c8e0;
+      text-decoration: none;
+      font-size: .875rem;
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 6px;
+      transition: background .18s, color .18s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { background: rgba(255,255,255,.08); color: var(--white); }
+    .nav-links .nav-cta {
+      background: var(--accent);
+      color: var(--navy) !important;
+      font-weight: 700;
+      margin-left: 6px;
+    }
+    .nav-links .nav-cta:hover { background: var(--accent-lt); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px;
+      transition: background .2s;
+    }
+    .hamburger:hover { background: rgba(255,255,255,.08); }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: .3s; }
+
+    /* ───────── HERO ───────── */
+    #home {
+      min-height: calc(100vh - 70px);
+      display: flex;
+      align-items: center;
+      padding: 80px 5vw 70px;
+      position: relative;
+      overflow: hidden;
+      /* Blueprint hero — dark navy overlay on blueprint */
+      background-color: var(--navy);
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+      background-position: -1px -1px;
+    }
+    /* Radial glow */
+    #home::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 60% at 75% 50%, rgba(26,74,138,.55) 0%, transparent 70%),
+        radial-gradient(ellipse 30% 40% at 10% 80%, rgba(184,151,90,.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(184,151,90,.35);
+      background: rgba(184,151,90,.08);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 26px;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 4.5vw, 3.5rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      letter-spacing: -.025em;
+      margin-bottom: 22px;
+    }
+
+    .hero-desc {
+      font-size: 1.08rem;
+      color: #93b4d0;
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 38px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: .975rem;
+      padding: 14px 30px;
+      border-radius: 8px;
+      transition: transform .18s, box-shadow .18s, background .18s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-gold {
+      background: var(--accent);
+      color: var(--navy);
+      box-shadow: 0 4px 18px rgba(184,151,90,.32);
+    }
+    .btn-gold:hover { background: var(--accent-lt); box-shadow: 0 8px 26px rgba(184,151,90,.42); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,.3);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.65); background: rgba(255,255,255,.06); }
+
+    .hero-credentials {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .cred {
+      border-left: 2px solid rgba(184,151,90,.4);
+      padding-left: 16px;
+    }
+    .cred-val {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+    }
+    .cred-label {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      color: #6a90b0;
+      margin-top: 4px;
+    }
+
+    /* ───────── Section Shared ───────── */
+    .section-wrap {
+      padding: 90px 5vw;
+    }
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: rgba(26,74,138,.09);
+      padding: 5px 12px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(1.65rem, 3vw, 2.5rem);
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -.02em;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .section-intro {
+      font-size: 1rem;
+      color: var(--gray-text);
+      max-width: 540px;
+      line-height: 1.75;
+      margin-bottom: 52px;
+    }
+
+    /* ───────── SERVICES ───────── */
+    #services {
+      background-color: rgba(255,255,255,.65);
+      backdrop-filter: blur(2px);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+      gap: 22px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 32px 28px 28px;
+      border: 1px solid var(--gray-mid);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .svc-icon {
+      width: 50px; height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(26,74,138,.1), rgba(26,74,138,.04));
+      border: 1px solid rgba(26,74,138,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+    .service-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 9px;
+      letter-spacing: -.01em;
+    }
+    .service-card p {
+      font-size: .875rem;
+      color: var(--gray-text);
+      line-height: 1.68;
+    }
+
+    /* ───────── PILLARS ───────── */
+    #pillars {
+      background-color: var(--navy);
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+      background-position: -1px -1px;
+    }
+    #pillars h2 { color: var(--white); }
+    #pillars .section-kicker { color: var(--accent); background: rgba(184,151,90,.1); }
+    #pillars .section-intro { color: #7a9abb; }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 24px;
+    }
+    .pillar {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      padding: 28px 24px;
+      transition: background .2s, border-color .2s;
+    }
+    .pillar:hover { background: rgba(255,255,255,.07); border-color: rgba(184,151,90,.3); }
+    .pillar-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(184,151,90,.12);
+      border: 1px solid rgba(184,151,90,.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    .pillar h4 {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .pillar p {
+      font-size: .845rem;
+      color: #6e8faa;
+      line-height: 1.65;
+    }
+
+    /* ───────── CONTACT ───────── */
+    #contact {
+      background-color: rgba(255,255,255,.7);
+      backdrop-filter: blur(2px);
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* Left info panel */
+    .contact-info h2 { margin-bottom: 14px; }
+    .contact-info .section-intro { margin-bottom: 36px; }
+
+    .info-block {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+      margin-bottom: 22px;
+    }
+    .info-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: rgba(26,74,138,.07);
+      border: 1px solid rgba(26,74,138,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+    .info-text strong {
+      display: block;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+    .info-text a, .info-text span {
+      font-size: .925rem;
+      color: var(--gray-text);
+      text-decoration: none;
+      line-height: 1.5;
+    }
+    .info-text a:hover { color: var(--blue); }
+
+    .response-note {
+      margin-top: 32px;
+      background: rgba(26,74,138,.06);
+      border: 1px solid rgba(26,74,138,.12);
+      border-left: 3px solid var(--blue);
+      border-radius: 8px;
+      padding: 16px 18px;
+      font-size: .85rem;
+      color: var(--gray-text);
+      line-height: 1.6;
+    }
+
+    /* Right — Form */
+    .quote-form-card {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 44px 40px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray-mid);
+    }
+    .form-header {
+      margin-bottom: 30px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--gray-mid);
+    }
+    .form-header h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 5px;
+    }
+    .form-header p {
+      font-size: .845rem;
+      color: var(--gray-text);
+    }
+
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .fg {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
+    .fg label {
+      font-size: .775rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .fg input,
+    .fg select,
+    .fg textarea {
+      padding: 11px 14px;
+      border: 1.5px solid var(--gray-mid);
+      border-radius: 8px;
+      font-size: .9rem;
+      font-family: inherit;
+      color: #1a2a3d;
+      background: var(--white);
+      outline: none;
+      transition: border-color .18s, box-shadow .18s;
+      -webkit-appearance: none;
+    }
+    .fg input:focus,
+    .fg select:focus,
+    .fg textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(26,74,138,.1);
+    }
+    .fg textarea { resize: vertical; min-height: 110px; }
+
+    /* File upload zone */
+    .upload-zone {
+      border: 2px dashed var(--gray-mid);
+      border-radius: 10px;
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      background: var(--gray-bg);
+      position: relative;
+    }
+    .upload-zone:hover, .upload-zone.drag-over {
+      border-color: var(--blue);
+      background: rgba(26,74,138,.04);
+    }
+    .upload-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .upload-icon { font-size: 28px; margin-bottom: 8px; }
+    .upload-zone p {
+      font-size: .85rem;
+      color: var(--gray-text);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .upload-zone small { font-size: .76rem; color: #94a3b8; }
+    #file-list {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .file-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(26,74,138,.08);
+      border: 1px solid rgba(26,74,138,.15);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: .78rem;
+      color: var(--blue);
+      font-weight: 600;
+    }
+    .file-chip .remove-file {
+      cursor: pointer;
+      font-size: .7rem;
+      color: #94a3b8;
+      transition: color .15s;
+    }
+    .file-chip .remove-file:hover { color: #e53e3e; }
+
+    .form-submit-btn {
+      width: 100%;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      padding: 15px;
+      border-radius: 9px;
+      font-size: .975rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: .02em;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .form-submit-btn:hover { background: var(--blue); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(26,74,138,.3); }
+    .form-submit-btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .form-legal { font-size: .75rem; color: #94a3b8; text-align: center; margin-top: 12px; line-height: 1.5; }
+
+    /* Success state */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .form-success.visible { display: block; }
+    .success-icon { font-size: 52px; margin-bottom: 16px; }
+    .form-success h4 { font-size: 1.3rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .form-success p { font-size: .9rem; color: var(--gray-text); }
+
+    /* ───────── FOOTER ───────── */
+    footer {
+      background: #080f1e;
+      color: #3d5269;
+      padding: 52px 5vw 28px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 52px;
+      margin-bottom: 44px;
+    }
+    .footer-brand-block { }
+    .footer-mark {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 16px;
+    }
+    .footer-emblem {
+      width: 36px; height: 36px;
+      background: var(--accent);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 13px; color: var(--navy);
+    }
+    .footer-mark-text strong { display: block; font-size: .9rem; font-weight: 700; color: #c8d8ea; }
+    .footer-mark-text span { font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; color: #3d5269; }
+    .footer-tagline { font-size: .845rem; color: #3d5269; line-height: 1.7; max-width: 270px; }
+    .footer-contact-item { display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: .845rem; color: #4a6478; }
+    .footer-contact-item a { color: #5a7a94; text-decoration: none; }
+    .footer-contact-item a:hover { color: var(--accent); }
+
+    .footer-col h5 {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #5a7a94;
+      margin-bottom: 18px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a { font-size: .875rem; color: #3d5269; text-decoration: none; transition: color .15s; }
+    .footer-col a:hover { color: var(--accent); }
+
+    .footer-bottom {
+      border-top: 1px solid #111e2e;
+      padding-top: 22px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .footer-bottom p { font-size: .78rem; color: #253547; }
+
+    /* ───────── Toast ───────── */
+    #toast {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: #16a34a; color: var(--white);
+      padding: 14px 22px; border-radius: 10px;
+      font-weight: 600; font-size: .88rem;
+      box-shadow: 0 6px 24px rgba(0,0,0,.25);
+      transform: translateY(80px); opacity: 0;
+      transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .35s;
+      display: flex; align-items: center; gap: 10px;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ───────── Responsive ───────── */
+    @media (max-width: 820px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .footer-brand-block { grid-column: 1 / -1; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--navy); padding: 14px 5vw 20px; gap: 2px; border-top: 1px solid rgba(255,255,255,.06); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .hero-credentials { gap: 24px; }
+      .frow { grid-template-columns: 1fr; }
+      .quote-form-card { padding: 28px 22px; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ NAVIGATION ══════════════ -->
+<nav>
+  <a href="#home" class="nav-brand">
+    <div class="nav-emblem">CGS</div>
+    <div class="nav-title">
+      <strong>Cornerstone General Solutions</strong>
+      <span>Home &amp; Property Services</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pillars">About</a></li>
+    <li><a href="#contact" class="nav-cta">Request a Quote</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section id="home">
+  <div class="hero-inner">
+    <div class="hero-label">For Homeowners · Landlords · Agents · Investors</div>
+    <h1>Your Property,<br>Taken Care Of.</h1>
+    <p class="hero-desc">
+      Whether it's your family home, a rental unit, a property you're prepping for sale,
+      or a portfolio you need to keep in great shape — we're the team you call.
+      Cornerstone General Solutions handles everything from small repairs to full renovations,
+      so you never have to juggle multiple contractors again.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-gold">Get a Free Quote</a>
+      <a href="#services" class="btn btn-ghost">See What We Do</a>
+    </div>
+    <div class="hero-credentials">
+      <div class="cred">
+        <div class="cred-val">7+</div>
+        <div class="cred-label">Services Offered</div>
+      </div>
+      <div class="cred">
+        <div class="cred-val">24 hr</div>
+        <div class="cred-label">Quote Response</div>
+      </div>
+      <div class="cred">
+        <div class="cred-val">1 Call</div>
+        <div class="cred-label">Handles It All</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ AUDIENCE STRIP ══════════════ -->
+<div style="background:rgba(255,255,255,0.82);border-top:1px solid #d0dde8;border-bottom:1px solid #d0dde8;padding:28px 5vw;">
+  <div style="max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px 32px;">
+    <span style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7a9abb;white-space:nowrap;">We work with:</span>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;">
+      <span style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.5px solid #d0dde8;border-radius:30px;padding:7px 16px;font-size:.875rem;font-weight:600;color:#163058;">🏠 Homeowners</span>
+      <span style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.5px solid #d0dde8;border-radius:30px;padding:7px 16px;font-size:.875rem;font-weight:600;color:#163058;">🔑 Landlords</span>
+      <span style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.5px solid #d0dde8;border-radius:30px;padding:7px 16px;font-size:.875rem;font-weight:600;color:#163058;">🏢 Real Estate Agents</span>
+      <span style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.5px solid #d0dde8;border-radius:30px;padding:7px 16px;font-size:.875rem;font-weight:600;color:#163058;">📈 Property Investors</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SERVICES ══════════════ -->
+<section id="services">
+  <div class="section-wrap">
+    <div class="section-kicker">What We Do</div>
+    <h2>Services for Every Property Need</h2>
+    <p class="section-intro">
+      From a single repair to a full renovation, we've got you covered. Here's what
+      we can take off your plate.
+    </p>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="svc-icon">🏗️</div>
+        <h3>General Contracting</h3>
+        <p>Taking on a bigger project? Renovations, room additions, remodels — we manage the whole thing start to finish, so you don't have to stress the details. Great for investors and homeowners planning upgrades.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-icon">🔨</div>
+        <h3>Repairs &amp; Maintenance</h3>
+        <p>Got a list of things that need fixing? We'll work through it efficiently and leave the property in great shape. Landlords love this — one visit, multiple items handled, tenants happy.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-icon">📷</div>
+        <h3>Smart Home &amp; Security Cameras</h3>
+        <p>We install security cameras, smart doorbells, and home automation systems — professionally mounted and configured. A popular upgrade for rental properties and homes going on the market.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-icon">📺</div>
+        <h3>TV Mounting</h3>
+        <p>Clean walls, no guesswork. We'll mount your TV securely on any surface — drywall, brick, or concrete — and tuck the cables away so everything looks sharp and finished.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-icon">💡</div>
+        <h3>Electrical &amp; Lighting</h3>
+        <p>New outlets, ceiling fans, recessed lighting, fixture swaps — we handle it safely and to code. A lighting refresh can do wonders for a home you're staging or a rental you're turning over.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-icon">🔧</div>
+        <h3>Plumbing Fixture Upgrades</h3>
+        <p>Faucets, toilets, showerheads, sinks — we replace and upgrade plumbing fixtures quickly and cleanly. Simple updates that go a long way in kitchens and bathrooms.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-icon">🎨</div>
+        <h3>Drywall Repair &amp; Painting</h3>
+        <p>Holes, cracks, scuffs, water damage — we patch it all and paint it perfectly. One of the fastest ways to refresh a property before a sale, listing, or new tenant move-in.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PILLARS ══════════════ -->
+<section id="pillars">
+  <div class="section-wrap">
+    <div class="section-kicker">How We Work</div>
+    <h2>What It's Like Working With Us</h2>
+    <p class="section-intro">We know you have options. Here's what you can count on every time you call us.</p>
+    <div class="pillars-grid">
+
+      <div class="pillar">
+        <div class="pillar-icon">📋</div>
+        <h4>Honest, Upfront Pricing</h4>
+        <p>You'll get a clear quote before we lift a finger. No surprises on the bill, no upsells mid-job — just straightforward pricing you can plan around.</p>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-icon">🕐</div>
+        <h4>We Show Up When We Say We Will</h4>
+        <p>Your time matters. We confirm appointments, arrive on schedule, and finish within the timeline we commit to. No waiting around all day.</p>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-icon">🏆</div>
+        <h4>Work Done Right the First Time</h4>
+        <p>We're not rushing to the next job. We take the time to do things properly so you're not calling us back to fix something that wasn't done right.</p>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-icon">💬</div>
+        <h4>You'll Always Know What's Going On</h4>
+        <p>We keep you in the loop — before, during, and after. If something comes up mid-project, we tell you right away and talk through your options.</p>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-icon">🛡️</div>
+        <h4>We Respect Your Property</h4>
+        <p>We treat every home and rental unit like it's our own — cleaning up after ourselves, protecting your floors and walls, and leaving things better than we found them.</p>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-icon">🔑</div>
+        <h4>One Team, Everything Covered</h4>
+        <p>No more tracking down five different contractors. Call us once and we handle the whole job — saving you time, stress, and coordination headaches.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="contact-layout">
+
+      <!-- Left: Info -->
+      <div class="contact-info">
+        <div class="section-kicker">Let's Talk</div>
+        <h2>Tell Us About Your Project</h2>
+        <p class="section-intro">
+          Whether it's one quick fix or a full renovation, we'd love to hear what
+          you've got going on. Fill out the form and we'll get back to you within
+          24 hours — no pressure, no obligation.
+        </p>
+
+        <div class="info-block">
+          <div class="info-icon">📞</div>
+          <div class="info-text">
+            <strong>Phone</strong>
+            <a href="tel:+14699893443">(469) 989-3443</a>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-icon">✉️</div>
+          <div class="info-text">
+            <strong>Email</strong>
+            <a href="mailto:cornerstonegeneralservices@gmail.com">cornerstonegeneralservices@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-icon">🗓️</div>
+          <div class="info-text">
+            <strong>Quote Response Time</strong>
+            <span>We respond to all inquiries within 24 hours</span>
+          </div>
+        </div>
+
+        <div class="response-note">
+          <strong style="color:var(--navy); display:block; margin-bottom:4px;">📸 Got Photos? Attach Them!</strong>
+          A few pictures of the project area help us give you a much more accurate
+          estimate — and it can save you a trip. Just upload them right in the form.
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div>
+        <div class="quote-form-card">
+
+          <div id="formBody">
+            <div class="form-header">
+              <h3>Get Your Free Estimate</h3>
+              <p>Tell us about your project and we'll reach out within 24 hours. Photos help us give you the most accurate quote.</p>
+            </div>
+
+            <form id="quoteForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+
+              <!-- Web3Forms config — replace YOUR_ACCESS_KEY with your key from web3forms.com -->
+              <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY" />
+              <input type="hidden" name="subject" value="New Project Quote — Cornerstone General Solutions" />
+              <input type="hidden" name="from_name" value="CGS Website" />
+              <input type="hidden" name="redirect" value="false" />
+              <input type="checkbox" name="botcheck" style="display:none;" />
+
+              <div class="frow">
+                <div class="fg">
+                  <label for="fname">First Name *</label>
+                  <input type="text" id="fname" name="first_name" placeholder="John" required />
+                </div>
+                <div class="fg">
+                  <label for="lname">Last Name *</label>
+                  <input type="text" id="lname" name="last_name" placeholder="Smith" required />
+                </div>
+              </div>
+
+              <div class="frow">
+                <div class="fg">
+                  <label for="femail">Email Address *</label>
+                  <input type="email" id="femail" name="email" placeholder="you@email.com" required />
+                </div>
+                <div class="fg">
+                  <label for="fphone">Phone Number *</label>
+                  <input type="tel" id="fphone" name="phone" placeholder="(555) 000-0000" required />
+                </div>
+              </div>
+
+              <div class="fg">
+                <label for="fservice">Service Needed *</label>
+                <select id="fservice" name="service" required>
+                  <option value="" disabled selected>Select a service…</option>
+                  <option>General Contracting</option>
+                  <option>Repair &amp; Maintenance Services</option>
+                  <option>Smart Home &amp; Security Camera Installation</option>
+                  <option>TV Mounting &amp; Installation</option>
+                  <option>Electrical &amp; Lighting</option>
+                  <option>Plumbing Fixture Services</option>
+                  <option>Drywall Repair &amp; Painting</option>
+                  <option>Multiple Services</option>
+                  <option>Other / Not Listed</option>
+                </select>
+              </div>
+
+              <div class="fg">
+                <label for="faddress">Property Address / City *</label>
+                <input type="text" id="faddress" name="project_address" placeholder="123 Main St, Dallas, TX" required />
+              </div>
+
+              <div class="fg">
+                <label for="fmessage">Tell Us About the Project *</label>
+                <textarea id="fmessage" name="message" placeholder="What needs to be done? Feel free to share as much or as little as you know — we'll figure out the rest together. (Size of the space, any timeline you have in mind, etc.)"></textarea>
+              </div>
+
+              <!-- Photo Upload -->
+              <div class="fg">
+                <label>Project Photos <span style="font-weight:400;color:#94a3b8;">(optional, but super helpful — up to 5 images)</span></label>
+                <div class="upload-zone" id="uploadZone">
+                  <input
+                    type="file"
+                    name="attachment[]"
+                    id="photoInput"
+                    accept="image/*,.pdf"
+                    multiple
+                    onchange="handleFiles(this.files)"
+                  />
+                  <div class="upload-icon">📎</div>
+                  <p>Click to attach photos or drag &amp; drop here</p>
+                  <small>JPG, PNG, HEIC, or PDF · up to 5 MB each</small>
+                </div>
+                <div id="file-list"></div>
+              </div>
+
+              <button type="submit" class="form-submit-btn" id="submitBtn">
+                <span id="btnText">Submit Quote Request</span>
+                <span id="btnArrow">→</span>
+              </button>
+              <p class="form-legal">We'll only use your info to follow up on your request. No spam, no sales calls — just a friendly response from our team.</p>
+            </form>
+          </div>
+
+          <!-- Success state -->
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon">✅</div>
+            <h4>Got it — thank you!</h4>
+            <p>We've received your request and will be in touch within 24 hours.<br>We look forward to working with you!</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-grid">
+
+    <div class="footer-brand-block">
+      <div class="footer-mark">
+        <div class="footer-emblem">CGS</div>
+        <div class="footer-mark-text">
+          <strong>Cornerstone General Solutions</strong>
+          <span>Home &amp; Property Services</span>
+        </div>
+      </div>
+      <p class="footer-tagline">
+        Helping homeowners, landlords, real estate agents, and property investors keep
+        their properties in great shape — one project at a time.
+      </p>
+      <div class="footer-contact-item">📞 <a href="tel:+14699893443">(469) 989-3443</a></div>
+      <div class="footer-contact-item">✉️ <a href="mailto:cornerstonegeneralservices@gmail.com">cornerstonegeneralservices@gmail.com</a></div>
+    </div>
+
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#services">General Contracting</a></li>
+        <li><a href="#services">Repair &amp; Maintenance</a></li>
+        <li><a href="#services">Smart Home &amp; Security</a></li>
+        <li><a href="#services">TV Mounting</a></li>
+        <li><a href="#services">Electrical &amp; Lighting</a></li>
+        <li><a href="#services">Plumbing Fixtures</a></li>
+        <li><a href="#services">Drywall &amp; Painting</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#pillars">Our Commitment</a></li>
+        <li><a href="#contact">Request a Quote</a></li>
+        <li><a href="tel:+14699893443">Call Us</a></li>
+        <li><a href="mailto:cornerstonegeneralservices@gmail.com">Email Us</a></li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Cornerstone General Solutions. All rights reserved.</p>
+    <p>Questions? Call <a href="tel:+14699893443" style="color:#5a7a94;text-decoration:none;">(469) 989-3443</a> — we're happy to help.</p>
+  </div>
+</footer>
+
+<div id="toast">✅ Sent! We'll be in touch within 24 hours.</div>
+
+<script>
+  /* ── Nav toggle ── */
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(a =>
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'))
+  );
+
+  /* ── File upload handling ── */
+  let selectedFiles = [];
+
+  function handleFiles(newFiles) {
+    for (const f of newFiles) {
+      if (selectedFiles.length >= 5) break;
+      if (!selectedFiles.find(x => x.name === f.name && x.size === f.size)) {
+        selectedFiles.push(f);
+      }
+    }
+    renderFileList();
+  }
+
+  function renderFileList() {
+    const list = document.getElementById('file-list');
+    list.innerHTML = '';
+    selectedFiles.forEach((f, i) => {
+      const chip = document.createElement('div');
+      chip.className = 'file-chip';
+      chip.innerHTML = `📄 ${f.name} <span class="remove-file" onclick="removeFile(${i})">✕</span>`;
+      list.appendChild(chip);
+    });
+  }
+
+  function removeFile(index) {
+    selectedFiles.splice(index, 1);
+    renderFileList();
+  }
+
+  // Drag and drop
+  const zone = document.getElementById('uploadZone');
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    handleFiles(e.dataTransfer.files);
+  });
+
+  /* ── Form submission ── */
+  document.getElementById('quoteForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    btn.disabled = true;
+    btnText.textContent = 'Sending…';
+
+    const formData = new FormData(this);
+
+    // Attach selected files
+    selectedFiles.forEach((f, i) => {
+      formData.set(`attachment_${i+1}`, f, f.name);
+    });
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        document.getElementById('formBody').style.display = 'none';
+        document.getElementById('formSuccess').classList.add('visible');
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch (err) {
+      // Fallback — open mailto if Web3Forms not yet configured
+      const fname = formData.get('first_name') || '';
+      const lname = formData.get('last_name') || '';
+      const service = formData.get('service') || '';
+      const message = formData.get('message') || '';
+      const phone = formData.get('phone') || '';
+      const address = formData.get('project_address') || '';
+
+      const body = encodeURIComponent(
+        `Name: ${fname} ${lname}\nPhone: ${phone}\nService: ${service}\nAddress: ${address}\n\nProject Details:\n${message}`
+      );
+      const subject = encodeURIComponent(`Quote Request – ${service} | ${fname} ${lname}`);
+      window.location.href = `mailto:cornerstonegeneralservices@gmail.com?subject=${subject}&body=${body}`;
+
+      document.getElementById('formBody').style.display = 'none';
+      document.getElementById('formSuccess').classList.add('visible');
+    }
+
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 5000);
+  });
+
+  /* ── Scroll-based nav active link ── */
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (scrollY >= s.offsetTop - 100) cur = s.id; });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--white)' : '';
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
